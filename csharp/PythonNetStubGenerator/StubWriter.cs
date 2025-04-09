@@ -481,8 +481,8 @@ namespace PythonNetStubGenerator
             var methodGroups = methods
                 .OrderBy(it => it, new MethodComparer())
                 .Where(it => !IsPropertyAccessor(it))
-                .Where(it => it.DeclaringType == stubType)
                 .GroupBy(it => it.NonGenericName())
+                .Where(it => it.Any(method => method.DeclaringType == stubType))
                 .OrderBy(infos => IsMethodGroup(infos.ToList()))
                 .ToArray();
 
